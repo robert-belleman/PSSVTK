@@ -1,0 +1,28 @@
+PSSVTK - Minimalistic demonstration of using VTK on the PSS
+
+Copyright (c) 2010 University of Amsterdam.
+Original implementation by Paul Melis, Computational Science,
+University of Amsterdam.
+
+For more information, please contact:
+Robert Belleman, Computational Science, University of Amsterdam
+R.G.Belleman@uva.nl
+
+
+This code demonstrates a rudimentary approach to interaction with actors.  A
+line is cast from a (cone) pointer device through all actors. A OBB tree is
+used to test intersection. This works fine for non-transformed actors. If
+actors are transformed, the polydata represented in the actor's mapper needs
+to be transformed before the intersection test is done. This is done though a
+vtkTransformPolyDataFilter with the actor's matrix set as the transformation
+matrix.
+
+However, this method does not work for actors that are aggregated into a
+vtkAssembly (like is done by vrml_read_as_assembly). The function
+vrml_read_as_actor can be used instead, as it reads all objects in the VRML
+file into one actor. The downside of that approach is that all colour
+information in the VRML objects is lost (this functions appends the polydata
+of all objects into one polydata object, but the colour information is in
+the actor, not in the polydata).
+
+
